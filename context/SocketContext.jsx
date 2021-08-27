@@ -7,7 +7,7 @@ import {io} from 'socket.io-client';
 
 export const SocketContext = React.createContext();
 
-    const socket = io('http://localhost:2500');
+    const socket = io('https://fakirs-chat.herokuapp.com');
 export const SocketProvider = ({children}) => {
     const [mypeer, setMypeer] = React.useState(null);
     const [stream, setStream] = React.useState(null);
@@ -64,7 +64,6 @@ export const SocketProvider = ({children}) => {
             mypeer.on('call', (call) => {
                 call.answer(stream);
                 setRemote(true);
-                console.log(call);
                 call.on('stream', (userStream) => {
                     userVideo.current.srcObject = userStream;
                 });
@@ -78,7 +77,6 @@ export const SocketProvider = ({children}) => {
                 call.on('stream', (userStream) => {
                     userVideo.current.srcObject = userStream;
                 });
-                console.log(call);
                 call.on('close', () => {
                     userVideo.current.remove();
                 })
